@@ -1,0 +1,34 @@
+= Hands-on Kafka Demo
+
+* Reads a data-set with images from https://github.com/openimages/dataset
+* Fetch thumbnails and publish Thumbnail record (content, url, title, image-id) to kafka
+*
+
+== Build
+[source,sh]
+----
+mvn clean verify
+----
+
+== Run Demo
+TIP: you need maven >= `3.3.1`.
+
+=== Publisher
+[source,sh]
+----
+mvn exec:java@thumbnail-publisher
+----
+
+=== Consumer
+[source,sh]
+----
+mvn exec:java@keyword-subscriber -Dexec.args=cat
+----
+
+== Lab
+
+Create simple service that consist of a publisher - a user location _producer_ simulator.
+
+The events sent should contain `timestamp`, `user`, `coordinates` (lat and long).
+
+A processor app (consumer) should detect when a user escaped a predefined area and send a notification on another `topic`.
